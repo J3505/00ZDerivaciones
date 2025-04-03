@@ -4,16 +4,18 @@ import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
-  imports: [ RouterLink, RouterLinkActive ],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss'
+  styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
+  role: string | null = null;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {
+    this.role = this.authService.getRole();
+  }
 
   logout() {
     this.authService.logout();
   }
-
 }

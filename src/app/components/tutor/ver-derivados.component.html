@@ -1,1 +1,28 @@
-<p>ver-derivados works!</p>
+<app-navbar></app-navbar>
+<div class="min-h-screen bg-gray-100 text-gray-800 p-6">
+  <h1 class="text-3xl font-bold mb-6">Ver Derivaciones</h1>
+  <div class="bg-white shadow-lg rounded-lg p-6">
+    <h2 class="text-lg font-semibold mb-4">Lista de Derivaciones</h2>
+    <ul class="space-y-2">
+      @for (derivacion of derivaciones; track $index) {
+        <li class="flex justify-between items-center p-3 bg-gray-100 rounded-md hover:bg-gray-200 transition-all">
+          <p>{{ derivacion.fecha }} - {{ derivacion.motivo }}</p>
+          <button
+            (click)="openModal(derivacion)"
+            class="text-blue-500 hover:underline"
+          >
+            Ver Derivación
+          </button>
+        </li>
+      }
+    </ul>
+  </div>
+
+  <!-- Modal -->
+  <app-modal-ver-derivacion
+    [isOpen]="isModalOpen"
+    [estudiante]="selectedEstudiante"
+    [derivacion]="selectedDerivacion"
+    (close)="closeModal()"
+  ></app-modal-ver-derivacion>
+</div>

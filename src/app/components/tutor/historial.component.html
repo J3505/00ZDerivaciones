@@ -1,1 +1,14 @@
-<p>historial works!</p>
+<app-navbar></app-navbar>
+<div class="min-h-screen bg-gray-100 text-gray-800 p-6">
+  <h1 class="text-3xl font-bold mb-6">Historial de Derivaciones</h1>
+  <div class="bg-white shadow-lg rounded-lg p-6">
+    <ul class="space-y-2">
+      @for (derivacion of derivaciones; track $index) {
+
+        <li  class="p-3 bg-gray-100 rounded">
+          Estudiante ID: {{ derivacion.estudianteId }} - {{ derivacion.motivo }} ({{ derivacion.fecha }})
+        </li>
+      }
+    </ul>
+  </div>
+</div>

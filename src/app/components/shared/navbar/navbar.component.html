@@ -1,4 +1,4 @@
-<nav class=" sticky top-0 z-50 w-full bg-blue-600 shadow-lg">
+<!-- <nav class=" sticky top-0 z-50 w-full bg-blue-600 shadow-lg">
 
  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
   <div class="flex justify-between h-16">
@@ -27,4 +27,54 @@
   </div>
  </div>
 
+</nav> -->
+
+<nav class="bg-gray-800 text-white p-4 border-b-2 border-gray-400">
+  <ul class="flex justify-center space-x-6">
+    @if (role === 'profesor') {
+
+      <li >
+        <a routerLink="/profesor/inicio" routerLinkActive="font-bold" class="hover:text-orange-400">Inicio</a>
+      </li>
+    }
+    @if (role === 'profesor') {
+      <li >
+        <a routerLink="/profesor/estudiantes" routerLinkActive="font-bold" class="hover:text-orange-400">Estudiantes</a>
+      </li>
+    }
+    @if (role === 'profesor' ) {
+      <li >
+        <a routerLink="/profesor/derivaciones" routerLinkActive="font-bold" class="hover:text-orange-400">Derivaciones</a>
+      </li>
+    }
+    @if (role === 'profesor') {
+      <li >
+        <a routerLink="/profesor/historial" routerLinkActive="font-bold" class="hover:text-orange-400">Historial</a>
+      </li>
+    }
+
+    @if (role === 'tutor') {
+
+    }
+    <li >
+      <a routerLink="/tutor/inicio" routerLinkActive="font-bold" class="hover:text-orange-400">Inicio</a>
+    </li>
+
+    @if ( role === 'tutor') {
+    }
+    <li >
+      <a routerLink="/tutor/ver-derivaciones" routerLinkActive="font-bold" class="hover:text-orange-400">Ver Derivaciones</a>
+    </li>
+
+
+    @if (role === 'tutor') {
+      <li >
+        <a routerLink="/tutor/historial" routerLinkActive="font-bold" class="hover:text-orange-400">Historial</a>
+      </li>
+    }
+
+    <li>
+      <button (click)="logout()" class="hover:text-orange-400">Cerrar Sesión</button>
+    </li>
+  </ul>
 </nav>

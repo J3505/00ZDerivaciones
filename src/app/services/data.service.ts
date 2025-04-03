@@ -24,6 +24,11 @@ export interface RespuestaTutor {
   id: number;
   mensaje: string;
 }
+export interface RespuestaTutor {
+  id: number;
+  derivacionId: number;
+  mensaje: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -47,9 +52,8 @@ export class DataService {
   ];
 
   private respuestasTutor: RespuestaTutor[] = [
-    { id: 1, mensaje: 'Se contactó con el joven, el motivo de su inasistencia fue que estuvo mal de salud.' },
-    { id: 2, mensaje: 'Se contactó con el joven, el motivo de su inasistencia fue que estuvo mal de salud.' },
-    { id: 3, mensaje: 'Se contactó con el joven, el motivo de su inasistencia fue que estuvo mal de salud.' },
+    { id: 1, derivacionId: 1, mensaje: 'El estudiante no asiste a clases en lo que va del curso' },
+    { id: 2, derivacionId: 2, mensaje: 'El estudiante no asiste a clases en lo que va del curso' },
   ];
 
   getEstudiantes(): Estudiante[] {
@@ -92,5 +96,9 @@ export class DataService {
 
   getContadores(): { enviados: number; recibidos: number } {
     return { enviados: 3, recibidos: 1 };
+  }
+
+  getContadoresTutor(): { recibidos: number; respondidos: number } {
+    return { recibidos: 3, respondidos: 1 }; // Datos falsos
   }
 }
