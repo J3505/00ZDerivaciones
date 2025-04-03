@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
+import { provideRouter } from '@angular/router';
+import { routes } from './app.routes';
+
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet],
@@ -10,3 +13,7 @@ import { RouterOutlet } from '@angular/router';
 export class AppComponent {
   title = 'sisd';
 }
+
+export const appConfig = {
+  providers: [provideRouter(routes)],
+};
