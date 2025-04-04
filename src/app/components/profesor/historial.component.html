@@ -1,5 +1,5 @@
-<app-navbar></app-navbar>
-<div class="min-h-screen bg-gray-50 p-6">
+
+<!-- <div class="min-h-screen bg-gray-50 p-6">
   <h1 class="text-3xl font-bold mb-6">Historial de Derivaciones</h1>
   <ul class="space-y-2">
     @for (derivacion of derivaciones; track $index) {
@@ -9,4 +9,19 @@
       </li>
     }
   </ul>
+</div> -->
+
+<app-navbar></app-navbar>
+<div class="min-h-screen bg-gray-100 text-gray-800 p-6">
+  <div class="bg-white p-6 rounded-lg shadow-lg">
+    <h2 class="text-xl font-bold mb-4">Historial de Derivaciones</h2>
+    <ul class="space-y-4">
+      <li *ngFor="let derivacion of derivaciones" class="p-4 border-2 border-gray-300 rounded-lg" [ngClass]="{'bg-green-100': derivacion.responded, 'bg-yellow-100': !derivacion.responded}">
+        <p><strong>Fecha:</strong> {{ derivacion.fecha }}</p>
+        <p><strong>Motivo:</strong> {{ derivacion.motivo }}</p>
+        <p><strong>Estado:</strong> {{ derivacion.responded ? 'Respondida' : 'Pendiente' }}</p>
+        <p *ngIf="derivacion.responded"><strong>Respuesta del Tutor:</strong> {{ derivacion.respuestaTutor }}</p>
+      </li>
+    </ul>
+  </div>
 </div>

@@ -1,28 +1,18 @@
 <app-navbar></app-navbar>
 <div class="min-h-screen bg-gray-100 text-gray-800 p-6">
-  <h1 class="text-3xl font-bold mb-6">Ver Derivaciones</h1>
-  <div class="bg-white shadow-lg rounded-lg p-6">
-    <h2 class="text-lg font-semibold mb-4">Lista de Derivaciones</h2>
-    <ul class="space-y-2">
-      @for (derivacion of derivaciones; track $index) {
-        <li class="flex justify-between items-center p-3 bg-gray-100 rounded-md hover:bg-gray-200 transition-all">
-          <p>{{ derivacion.fecha }} - {{ derivacion.motivo }}</p>
-          <button
-            (click)="openModal(derivacion)"
-            class="text-blue-500 hover:underline"
-          >
-            Ver Derivación
-          </button>
-        </li>
-      }
+  <div class="bg-white p-6 rounded-lg shadow-lg">
+    <h2 class="text-xl font-bold mb-4">Ver Derivaciones</h2>
+    <ul class="space-y-4">
+      <li *ngFor="let derivacion of derivaciones" class="flex justify-between items-center border-2 border-gray-300 p-4 rounded-lg" [ngClass]="{'bg-green-100': derivacion.responded, 'bg-yellow-100': !derivacion.responded}">
+        <div>
+          <p>{{ derivacion.motivo }}</p>
+          <p class="text-sm text-gray-600">Estado: {{ derivacion.responded ? 'Respondida' : 'Pendiente' }}</p>
+        </div>
+        <button (click)="openModal(derivacion.id)" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Ver derivación</button>
+      </li>
     </ul>
   </div>
+  <app-modal-ver-derivacion [isOpen]="isModalOpen" [derivacionId]="selectedDerivacionId" (close)="closeModal()" ></app-modal-ver-derivacion>
 
-  <!-- Modal -->
-  <app-modal-ver-derivacion
-    [isOpen]="isModalOpen"
-    [estudiante]="selectedEstudiante"
-    [derivacion]="selectedDerivacion"
-    (close)="closeModal()"
-  ></app-modal-ver-derivacion>
+
 </div>

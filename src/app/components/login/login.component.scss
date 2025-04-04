@@ -1,0 +1,16 @@
+.bg-auth-pattern {
+  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2gjARNPDsFe-ChQwhwIjR7t7zsoPonDnL6g&s');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@media (min-width: 1024px) {
+  .auth-container {
+      min-height: 600px;
+  }
+}
+
+.input-focus-effect:focus {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}

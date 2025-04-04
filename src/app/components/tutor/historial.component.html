@@ -1,12 +1,15 @@
 <app-navbar></app-navbar>
 <div class="min-h-screen bg-gray-100 text-gray-800 p-6">
-  <h1 class="text-3xl font-bold mb-6">Historial de Derivaciones</h1>
-  <div class="bg-white shadow-lg rounded-lg p-6">
-    <ul class="space-y-2">
+  <div class="bg-white p-6 rounded-lg shadow-lg">
+    <h2 class="text-xl font-bold mb-4">Historial</h2>
+    <ul class="space-y-4">
       @for (derivacion of derivaciones; track $index) {
 
-        <li  class="p-3 bg-gray-100 rounded">
-          Estudiante ID: {{ derivacion.estudianteId }} - {{ derivacion.motivo }} ({{ derivacion.fecha }})
+        <li class="p-4 border-2 border-gray-300 rounded-lg bg-green-100">
+          <p><strong>Fecha:</strong> {{ derivacion.fecha }}</p>
+          <p><strong>Motivo:</strong> {{ derivacion.motivo }}</p>
+          <p><strong>Respuesta:</strong> {{ derivacion.respuestaTutor || 'Sin respuesta' }}</p>
+          <p><strong>Respondido:</strong> Sí</p>
         </li>
       }
     </ul>

@@ -31,6 +31,7 @@
 
 <nav class="bg-gray-800 text-white p-4 border-b-2 border-gray-400">
   <ul class="flex justify-center space-x-6">
+
     @if (role === 'profesor') {
 
       <li >
@@ -55,16 +56,16 @@
 
     @if (role === 'tutor') {
 
+      <li >
+        <a routerLink="/tutor/inicio" routerLinkActive="font-bold" class="hover:text-orange-400">Inicio</a>
+      </li>
     }
-    <li >
-      <a routerLink="/tutor/inicio" routerLinkActive="font-bold" class="hover:text-orange-400">Inicio</a>
-    </li>
 
     @if ( role === 'tutor') {
+      <li >
+        <a routerLink="/tutor/ver-derivaciones" routerLinkActive="font-bold" class="hover:text-orange-400">Ver Derivaciones</a>
+      </li>
     }
-    <li >
-      <a routerLink="/tutor/ver-derivaciones" routerLinkActive="font-bold" class="hover:text-orange-400">Ver Derivaciones</a>
-    </li>
 
 
     @if (role === 'tutor') {

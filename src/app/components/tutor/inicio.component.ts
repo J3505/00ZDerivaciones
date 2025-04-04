@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from "../shared/navbar/navbar.component";
-import { DataService, RespuestaTutor } from '../../services/data.service';
+import { DataService, Derivacion, RespuestaTutor } from '../../services/data.service';
 import { AuthService } from '../../services/auth.service';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ModalVerDerivacionComponent } from "../shared/modal-ver-derivacion/modal-ver-derivacion.component";
 
 @Component({
   selector: 'app-inicio',
-  imports: [NavbarComponent, RouterModule ],
+  imports: [NavbarComponent, RouterModule, CommonModule, ModalVerDerivacionComponent],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.scss'
 })
@@ -15,15 +17,14 @@ export class InicioTutorComponent implements OnInit {
   fecha: string = '';
   hora: string = '';
   contadores: { recibidos: number; respondidos: number } = { recibidos: 0, respondidos: 0 };
-  respuestas: RespuestaTutor[] = [];
+  derivaciones: Derivacion[] = [];
+  isModalOpen: boolean = false; // Controla si el modal está abierto
+  selectedDerivacionId: number | null = null; // ID de la derivación seleccionada
 
   constructor(private authService: AuthService, private dataService: DataService) {}
 
-  ngOnInit(): void {
-    // Obtener el rol del usuario
+  ngOnInit() {
     this.user = this.authService.getRole();
-
-    // Obtener la fecha y hora actual
     const now = new Date();
     this.fecha = now.toLocaleDateString('es-ES', {
       day: '2-digit',
@@ -35,12 +36,21 @@ export class InicioTutorComponent implements OnInit {
       minute: '2-digit',
       hour12: false,
     });
-
-    // Obtener contadores y respuestas
     this.contadores = this.dataService.getContadoresTutor();
-    this.respuestas = this.dataService.getRespuestasTutor();
+    this.derivaciones = this.dataService.getDerivaciones().filter(d => !d.responded);
+  }
 
+  // Método para abrir el modal
+  openModal(derivacionId: number) {
+    this.selectedDerivacionId = derivacionId;
+    this.isModalOpen = true;
+  }
 
+  // Método para cerrar el modal
+  closeModal() {
+    this.isModalOpen = false;
+    this.selectedDerivacionId = null;
+    this.derivaciones = this.dataService.getDerivaciones().filter(d => !d.responded); // Actualizar la lista
   }
 
 }

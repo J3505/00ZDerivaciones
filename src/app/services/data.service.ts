@@ -19,15 +19,19 @@ export interface Derivacion {
   estudianteId: number;
   motivo: string;
   fecha: string;
-}
-export interface RespuestaTutor {
-  id: number;
-  mensaje: string;
+  responded: boolean;
+  respuestaTutor?: string;
 }
 export interface RespuestaTutor {
   id: number;
   derivacionId: number;
   mensaje: string;
+}
+
+export interface Notificacion {
+  id: number;
+  mensaje: string;
+  fecha: string;
 }
 
 @Injectable({
@@ -47,14 +51,16 @@ export class DataService {
   ];
 
   private derivaciones: Derivacion[] = [
-    { id: 1, estudianteId: 1234567, motivo: 'Falta de atención', fecha: '2025-03-01' },
-    { id: 2, estudianteId: 1234567, motivo: 'Tarea incompleta', fecha: '2025-03-15' },
+    { id: 1, estudianteId: 1234567, motivo: 'El estudiante no asistió a clases en lo que va del curso', fecha: '2025-03-01', responded: false },
+    { id: 2, estudianteId: 1234568, motivo: 'El estudiante no asistió a clases en lo que va del curso', fecha: '2025-03-02', responded: true, respuestaTutor: 'Se contactó con el joven, el motivo de su inasistencia fue que estuvo mal de salud.' },
+    { id: 3, estudianteId: 1234567, motivo: 'El estudiante no asistió a clases en lo que va del curso', fecha: '2025-03-03', responded: false },
   ];
 
   private respuestasTutor: RespuestaTutor[] = [
-    { id: 1, derivacionId: 1, mensaje: 'El estudiante no asiste a clases en lo que va del curso' },
-    { id: 2, derivacionId: 2, mensaje: 'El estudiante no asiste a clases en lo que va del curso' },
+    { id: 1, derivacionId: 2, mensaje: 'Se contactó con el joven, el motivo de su inasistencia fue que estuvo mal de salud.' },
   ];
+
+  private notificaciones: Notificacion[] = [];
 
   getEstudiantes(): Estudiante[] {
     return this.estudiantes;
@@ -64,6 +70,7 @@ export class DataService {
     return this.estudiantes.find((e) => e.id === id);
   }
 
+  /// Registrar estudiantes
   addEstudiante(estudiante: Estudiante) {
     this.estudiantes.push(estudiante);
   }
@@ -90,15 +97,43 @@ export class DataService {
     this.derivaciones.push(derivacion);
   }
 
+  updateDerivacion(derivacionId: number, respuesta: string) {
+    const derivacion = this.derivaciones.find(d => d.id === derivacionId);
+    if (derivacion) {
+      derivacion.responded = true;
+      derivacion.respuestaTutor = respuesta;
+      this.respuestasTutor.push({
+        id: this.respuestasTutor.length + 1,
+        derivacionId: derivacionId,
+        mensaje: respuesta,
+      });
+      this.notificaciones.push({
+        id: this.notificaciones.length + 1,
+        mensaje: `El tutor ha respondido a la derivación del estudiante ${derivacion.estudianteId}: "${respuesta}"`,
+        fecha: new Date().toISOString().split('T')[0],
+      });
+    }
+  }
+
   getRespuestasTutor(): RespuestaTutor[] {
     return this.respuestasTutor;
   }
 
-  getContadores(): { enviados: number; recibidos: number } {
-    return { enviados: 3, recibidos: 1 };
+  getNotificaciones(): Notificacion[] {
+    return this.notificaciones;
   }
 
+  // Contadores para el profesor
+  getContadoresProfesor(): { enviados: number; recibidos: number } {
+    const enviados = this.derivaciones.length; // Todas las derivaciones creadas por el profesor
+    const recibidos = this.derivaciones.filter((d) => d.responded).length; // Derivaciones respondidas por el tutor
+    return { enviados, recibidos };
+  }
+
+  // Contadores para el tutor
   getContadoresTutor(): { recibidos: number; respondidos: number } {
-    return { recibidos: 3, respondidos: 1 }; // Datos falsos
+    const recibidos = this.derivaciones.filter((d) => !d.responded).length; // Derivaciones pendientes de respuesta
+    const respondidos = this.derivaciones.filter((d) => d.responded).length; // Derivaciones ya respondidas
+    return { recibidos, respondidos };
   }
 }

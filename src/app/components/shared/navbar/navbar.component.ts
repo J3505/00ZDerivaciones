@@ -18,4 +18,20 @@ export class NavbarComponent {
   logout() {
     this.authService.logout();
   }
+
+  // links ={
+  //   profesores :[
+  //     { path:'url', label: ' Inicio' ,Icon:'icono' },
+  //     { path:'url', label: ' Inicio' ,Icon:'icono' },
+  //     { path:'url', label: ' Inicio' ,Icon:'icono' },
+  //     { path:'url', label: ' Inicio' ,Icon:'icono' },
+  //   ],
+
+  //   tutor :[
+  //     { path:'url', label: ' Inicio' ,Icon:'icono' },
+  //     { path:'url', label: ' Inicio' ,Icon:'icono' },
+  //     { path:'url', label: ' Inicio' ,Icon:'icono' },
+
+  //     ]
+  //   }
 }

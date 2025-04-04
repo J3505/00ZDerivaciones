@@ -3,10 +3,11 @@ import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { DataService, Derivacion, Estudiante } from '../../services/data.service';
 import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-derivaciones',
-  imports: [NavbarComponent, FormsModule],
+  imports: [NavbarComponent, FormsModule, CommonModule],
   templateUrl: './derivaciones.component.html',
   styleUrl: './derivaciones.component.scss'
 })
@@ -50,15 +51,15 @@ export class DerivacionesComponent implements OnInit{
         estudianteId: this.estudiante.id,
         motivo: this.motivo,
         fecha: new Date().toISOString().split('T')[0],
+        responded: false,
       };
       this.dataService.addDerivacion(nuevaDerivacion);
-      this.derivaciones = this.dataService.getDerivacionesByEstudianteId(this.estudiante.id);
+      this.derivaciones = this.dataService.getDerivacionesByEstudianteId(this.estudiante.id) || [];
       this.motivo = '';
     }
   }
 
   searchEstudiante() {
-    // Simulación de búsqueda
     console.log('Buscar estudiante');
   }
 }

@@ -14,6 +14,6 @@ export class HistorialTutorComponent implements OnInit{
   constructor(private dataService: DataService) {}
 
   ngOnInit() {
-    this.derivaciones = this.dataService.getDerivaciones();
+    this.derivaciones = this.dataService.getDerivaciones().filter(d => d.responded);
   }
 }

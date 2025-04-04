@@ -1,41 +1,38 @@
 <app-navbar></app-navbar>
-<div class="min-h-screen bg-black text-white p-6">
-  <!-- Sección superior: Bienvenido, Fecha y Hora -->
+<div class="min-h-screen bg-gray-100 text-gray-800 p-6">
   <div class="flex justify-between items-center mb-6">
-    <p class="text-pink-500 text-lg">Bienvenido {{ user || 'Tutor' }}</p>
+    <p class="text-red-500 text-lg">Bienvenido {{ user || 'Tutor' }}</p>
     <div class="text-right">
-      <p class="text-white">{{ fecha }}</p>
-      <p class="text-pink-500 text-2xl">{{ hora }}</p>
+      <p class="text-gray-700">{{ fecha }}</p>
+      <p class="text-red-500 text-2xl">{{ hora }}</p>
     </div>
   </div>
 
-  <!-- Contadores: Recibidos, Respondidos y Hora -->
-  <div class="flex justify-between mb-6">
-    <div class="border-2 border-white p-4 w-1/3 text-center">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+    <div class="border-2 border-gray-300 p-4 text-center rounded-lg">
       <p class="text-lg">Recibidos</p>
-      <p class="text-pink-500 text-4xl">{{ contadores.recibidos }}</p>
+      <p class="text-red-500 text-4xl">{{ contadores.recibidos }}</p>
     </div>
-    <div class="border-2 border-white p-4 w-1/3 text-center">
+    <div class="border-2 border-gray-300 p-4 text-center rounded-lg">
       <p class="text-lg">Respondidos</p>
-      <p class="text-pink-500 text-4xl">{{ contadores.respondidos }}</p>
+      <p class="text-red-500 text-4xl">{{ contadores.respondidos }}</p>
     </div>
-    <div class="border-2 border-white p-4 w-1/3 text-center">
+    <div class="border-2 border-gray-300 p-4 text-center rounded-lg">
       <p class="text-lg">Hora</p>
-      <p class="text-pink-500 text-4xl">{{ hora }}</p>
+      <p class="text-red-500 text-4xl">{{ hora }}</p>
     </div>
   </div>
 
-  <!-- Lista de derivaciones -->
-  <div class="border-2 border-white p-4">
-    <h2 class="text-lg font-semibold mb-4">Lista derivaciones:</h2>
-    <ul class="space-y-2">
-      @for (respuesta of respuestas; track $index) {
-
-        <li class="flex justify-between items-center p-2 bg-gray-800 rounded">
-          <p>{{ respuesta.mensaje }}</p>
-          <a [routerLink]="['/tutor/ver-derivaciones']" class="text-blue-500 hover:underline">Ver derivación</a>
-        </li>
-      }
+  <div class="bg-white p-6 rounded-lg shadow-lg">
+    <h3 class="text-lg font-semibold mb-4">Lista derivaciones</h3>
+    <ul class="space-y-4">
+      <li *ngFor="let derivacion of derivaciones" class="flex justify-between items-center border-2 border-gray-300 p-4 rounded-lg">
+        <p>{{ derivacion.motivo }}</p>
+        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600" (click)="openModal(derivacion.id)">Ver derivación</button>
+      </li>
     </ul>
   </div>
+
+  <!-- Añadimos el componente Modal -->
+   <app-modal-ver-derivacion [isOpen]="isModalOpen" [derivacionId]="selectedDerivacionId" (close)="closeModal()"></app-modal-ver-derivacion>
 </div>
