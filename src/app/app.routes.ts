@@ -30,4 +30,17 @@ export const routes: Routes = [
       { path: 'historial', component: HistorialTutorComponent },
     ],
   },
+  // {
+  //   path: 'admin',
+  //   children: [
+  //     { path: 'inicio', component:  },
+  //     { path: 'estudiantes', component:   },
+  //     { path: 'derivaciones', component:  },
+  //   ]
+  // },
+  {
+    path: '**',
+    redirectTo: 'login',
+    pathMatch: 'full',
+  }
 ];
