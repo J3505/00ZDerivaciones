@@ -1,14 +1,23 @@
 import { Component, EventEmitter, Input, Output }  from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Estudiante } from '../../../services/data.service';
-
+import { Dialog } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
 @Component({
   selector: 'app-modal',
-  imports: [FormsModule],
+  imports: [FormsModule, ButtonModule, InputTextModule],
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.scss'
 })
 export class ModalComponent {
+
+  visible: boolean = false;
+
+    showDialog() {
+        this.visible = true;
+    }
+    
   @Input() isOpen: boolean = false;
   @Output() close = new EventEmitter<void>();
   @Output() save = new EventEmitter<Estudiante>();

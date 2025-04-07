@@ -100,18 +100,26 @@
       <!-- Navigation Links con iconos -->
       <div class="hidden md:flex items-center space-x-8">
         @for (link of navLinks; track $index) {
+          @if (role &&  link.roles.includes(role)) {
+            <a [routerLink]="link.href"
+               routerLinkActive="font-bold"
+               class="menu-link text-gray-300 hover:text-white transition-colors duration-300 flex items-center"
+               >
+               <i class="fas" [ngClass]="link.icon + ' mr-2'"></i>
+               <span>{{ link.label }}</span>
+            </a>
+          }
 
-        <a
+        <!-- <a
           [href]="link.href"
           class="menu-link text-gray-300 hover:text-white transition-colors duration-300 flex items-center"
         >
-          <i class="fas" [ngClass]="link.icon + ' mr-2'"></i> {{ link.label }}
-        </a>
+        </a> -->
         }
       </div>
 
       <!-- CTA Button con icono -->
-      <div class="hidden md:block relative group ring-1 ring-white rounded-md ">
+      <div class="hidden md:block relative group ring-1 ring-white rounded-md" (click)="logout()">
         <div
           class="absolute -inset-0.5 bg-blue-500  rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-200"
         ></div>
@@ -167,13 +175,24 @@
     >
       <div class="px-2 pt-2 pb-4 space-y-2">
         @for (link of navLinks; track $index) {
+          @if (role &&  link.roles.includes(role)) {
+            <a [routerLink]="link.href"
+               routerLinkActive="font-bold"
+               class="block px-4 py-3 text-gray-300 hover:text-white hover:bg-blue-700 rounded-lg transition-colors duration-300 flex items-center"
+               >
+               <i class="fas" [ngClass]="link.icon + ' mr-2'"></i>
+               <span>{{ link.label }}</span>
+            </a>
+          }
+        }
+        <!-- @for (link of navLinks; track $index) {
         <a
           [href]="link.href"
           class="block px-4 py-3 text-gray-300 hover:text-white hover:bg-blue-700 rounded-lg transition-colors duration-300 flex items-center"
         >
           <i class="fas" [ngClass]="link.icon + ' mr-2'"></i> {{ link.label }}
         </a>
-        }
+        } -->
 
         <button (click)="logout()"
 
