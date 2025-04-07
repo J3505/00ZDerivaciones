@@ -1,4 +1,4 @@
-<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50 p-4">
+<!-- <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50 p-4">
   <div class="w-full max-w-md space-y-8 bg-white rounded-2xl shadow-xl p-8">
 
     <div class="text-center">
@@ -47,4 +47,142 @@
       </div>
     </form>
   </div>
-</div>
+</div> -->
+<section class="min-h-screen flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-xl overflow-hidden w-full max-w-6xl flex flex-col lg:flex-row">
+    <!-- Lado Izquierdo - Imagen -->
+    <div class="lg:w-1/2 relative">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-500 to-blue-700 opacity-90"></div>
+      <img
+        class="w-full h-full object-cover min-h-[300px]"
+        src="https://blogconexion.senati.edu.pe/wp-content/uploads/2023/05/KV_GENERICO_CAMPANA_ADMI2022_Editable-scaled.jpg"
+        alt="Education"
+      />
+      <div class="absolute inset-0 flex flex-col justify-center items-center p-8 text-white">
+        <h1 class="text-3xl md:text-4xl font-bold mb-4">Bienvenido</h1>
+        <p class="text-lg md:text-xl text-center">Sistema de derivaciones SENATI.</p>
+      </div>
+    </div>
+
+    <!-- Lado Derecho - Formulario de Inicio de Sesión -->
+    <div class="lg:w-1/2 p-8 responsive-padding">
+      <!-- Selector de Rol - Diseño de Carrusel -->
+      <div class="mb-8">
+        <div class="text-center relative h-32 mb-6">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <!-- Iconos del Carrusel -->
+            <div
+              *ngFor="let role of roles; let i = index"
+              [class]="getRoleClasses(i)"
+              [attr.data-role]="role.role"
+            >
+              <i [class]="role.iconClass + ' text-' + role.color + '-600 text-2xl fade-in'"></i>
+              <p class="text-xs mt-1 font-medium">{{ role.label }}</p>
+            </div>
+          </div>
+          <!-- Indicadores -->
+          <div class="absolute bottom-0 left-0 right-0 flex justify-center space-x-2">
+            <button
+              *ngFor="let role of roles; let i = index"
+              (click)="showRole(i)"
+              [class]="getIndicatorClasses(i)"
+            ></button>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-2">Iniciar Sesión</h2>
+      <p class="text-center text-gray-600 mb-8">Accede a tu cuenta para continuar</p>
+
+      <form class="space-y-6" (ngSubmit)="onSubmit()">
+        <!-- Campo de Correo Electrónico -->
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+            <i class="fas fa-envelope mr-2 text-blue-500"></i> Correo electrónico
+          </label>
+          <div class="relative">
+            <input
+              id="username"
+              name="username"
+              type="text"
+              required
+              [(ngModel)]="username"
+              class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 input-focus-effect transition duration-300 pl-10"
+              placeholder="correo@senati.pe"
+            />
+            <i class="fas fa-user absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+          </div>
+        </div>
+
+        <!-- Campo de Contraseña -->
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+            <i class="fas fa-lock mr-2 text-blue-500"></i> Contraseña
+          </label>
+          <div class="relative">
+            <input
+            [(ngModel)]="password"
+              id="password"
+              name="password"
+              type="password"
+              required
+              [(ngModel)]="password"
+              class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 input-focus-effect transition duration-300 pl-10 pr-10"
+              placeholder="••••••••"
+            />
+            <i class="fas fa-key absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            <button
+              type="button"
+              (click)="togglePasswordVisibility()"
+              class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
+            >
+              <i class="fas" [ngClass]="passwordVisible ? 'fa-eye-slash' : 'fa-eye'"></i>
+            </button>
+          </div>
+        </div>
+        @if (error) {
+          <div  class="text-red-500 text-sm text-center">
+            {{ error }}
+          </div>
+        }
+
+
+        <!-- Recordarme y Olvidé mi Contraseña -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <input
+              id="remember-me"
+              name="remember-me"
+              type="checkbox"
+              class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+            />
+            <label for="remember-me" class="ml-2 block text-sm text-gray-700">Recordarme</label>
+          </div>
+          <div class="text-sm">
+            <a href="#" class="font-medium text-blue-600 hover:text-blue-500">¿Olvidaste tu contraseña?</a>
+          </div>
+        </div>
+
+
+        <!-- Botón de Inicio de Sesión -->
+        <div>
+          <button
+            type="submit"
+            class="w-full flex hover:cursor-pointer justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-300 transform hover:scale-105"
+          >
+            <i class="fas fa-sign-in-alt mr-2"></i> Iniciar sesión
+          </button>
+        </div>
+      </form>
+
+      <!-- Enlace de Registro -->
+      <div class="mt-6 text-center">
+        <p class="text-sm text-gray-600">
+          ¿No tienes una cuenta?
+          <a href="#" class="font-medium text-blue-600 hover:text-blue-500">Regístrate</a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -1,93 +1,253 @@
 <!-- <app-navbar></app-navbar> -->
 <app-navbar></app-navbar>
 
-<div class="min-h-screen bg-gray-100 text-gray-800 p-6">
-  <!--  Encabezado con datos académicos -->
-  <div class="bg-white shadow-lg rounded-lg p-6 mb-6 flex flex-wrap justify-between items-center">
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 text-sm text-gray-700">
-      <p><strong>Período:</strong> {{ periodo }}</p>
-      <p><strong>Curso:</strong> {{ curso }}</p>
-      <p><strong>CFP:</strong> {{ cfp }}</p>
-      <p><strong>Semestre:</strong> {{ semestre }}</p>
-      <p><strong>Carrera:</strong> {{ carrera }}</p>
-    </div>
-    <button
-      (click)="searchEstudiante()"
-      class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-900 transition-all focus:ring-2 focus:ring-gray-400"
-    >
-      🔍 Buscar estudiante
-    </button>
+
+<!-- Main Content Area -->
+<div class="flex-1 overflow-auto p-6 bg-gray-50">
+  <!-- Academic Info Card -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6 animate-fade-in">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+          <div>
+              <h2 class="text-xl font-semibold text-gray-800 mb-2">Información Académica</h2>
+              <p class="text-gray-600">Período académico actual</p>
+          </div>
+          <div class="mt-4 md:mt-0 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+              <div class="bg-indigo-50 p-3 rounded-lg">
+                  <p class="text-xs text-indigo-500 font-medium">PERÍODO</p>
+                  <p class="font-medium">2023-2</p>
+              </div>
+              <div class="bg-indigo-50 p-3 rounded-lg">
+                  <p class="text-xs text-indigo-500 font-medium">CURSO</p>
+                  <p class="font-medium">Matemáticas II</p>
+              </div>
+              <div class="bg-indigo-50 p-3 rounded-lg">
+                  <p class="text-xs text-indigo-500 font-medium">CFP</p>
+                  <p class="font-medium">ING-102</p>
+              </div>
+              <div class="bg-indigo-50 p-3 rounded-lg">
+                  <p class="text-xs text-indigo-500 font-medium">SEMESTRE</p>
+                  <p class="font-medium">III</p>
+              </div>
+          </div>
+      </div>
   </div>
 
-  <!--  Mostrar error si lo hay -->
-   @if ( error ) {
-     <div  class="text-red-500 text-center mb-6">
-       {{ error }}
-     </div>
-   }
-
-  <!--  Información del estudiante -->
-  @if (estudiante) {
-    <div class="bg-white shadow-lg rounded-lg p-6 mb-6">
-      <h2 class="text-lg font-bold text-gray-700 mb-4">📄 Información del Estudiante</h2>
-      <div class="flex flex-col md:flex-row gap-6">
-        <!-- Imagen del estudiante -->
-        <div class="flex-shrink-0">
-          <img
-            [src]="estudiante.foto || 'https://via.placeholder.com/150'"
-            alt="Foto de {{ estudiante.nombre }}"
-            class="w-32 h-32 object-cover rounded-full border-2 border-gray-300"
-          >
-        </div>
-        <!-- Datos del estudiante -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-700">
-          <p><strong>ID:</strong> {{ estudiante.id }}</p>
-          <p><strong>Nombre:</strong> {{ estudiante.nombre }} {{ estudiante.apellido }}</p>
-          <p><strong>Teléfono:</strong> {{ estudiante.telefono }}</p>
-          <p><strong>Correo:</strong> {{ estudiante.correo }}</p>
-        </div>
+  <!-- Search Student Section -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6 animate-fade-in">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+          <div class="mb-4 md:mb-0">
+              <h2 class="text-xl font-semibold text-gray-800 mb-1">Buscar Estudiante</h2>
+              <p class="text-gray-600">Ingresa el ID o nombre del estudiante</p>
+          </div>
+          <div class="flex">
+              <div class="relative flex-grow max-w-md">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <i class="fas fa-search text-gray-400"></i>
+                  </div>
+                  <input type="text" class="block w-full pl-10 pr-12 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="ID o nombre...">
+                  <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                      <button class="p-1 text-gray-400 hover:text-gray-500 focus:outline-none">
+                          <i class="fas fa-filter"></i>
+                      </button>
+                  </div>
+              </div>
+              <button class="ml-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition flex items-center">
+                  <i class="fas fa-search mr-2"></i>
+                  <span>Buscar</span>
+              </button>
+          </div>
       </div>
-    </div>
-  } @else {
-    <p class="text-lg text-gray-600 text-center py-6">Selecciona un estudiante desde la sección "Estudiantes" para ver o agregar derivaciones.</p>
-  }
+  </div>
 
-  <!-- 🔹 Formulario de derivación -->
-  @if (estudiante) {
-    <div class="bg-white shadow-lg rounded-lg p-6 mb-6">
-      <h2 class="text-xl font-bold text-gray-800 mb-4">📌 Agregar Derivación</h2>
-      <div class="mb-4">
-        <label class="block text-gray-700 font-medium mb-2">Motivo de la derivación:</label>
-        <textarea
-          [(ngModel)]="motivo"
-          class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-          rows="4"
-        ></textarea>
+  <!-- Student Info Section (Conditional) -->
+  <div id="studentInfo" class=" bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6 animate-fade-in">
+      <div class="flex flex-col md:flex-row">
+          <div class="flex-shrink-0 mb-4 md:mb-0 md:mr-6">
+              <div class="relative">
+                  <img id="studentPhoto" src="https://randomuser.me/api/portraits/women/44.jpg" class="w-24 h-24 rounded-full avatar-ring object-cover">
+                  <span class="absolute bottom-0 right-0 bg-green-500 rounded-full w-4 h-4 border-2 border-white"></span>
+              </div>
+          </div>
+          <div class="flex-grow">
+              <div class="flex justify-between items-start">
+                  <div>
+                      <h2 class="text-xl font-bold text-gray-800" id="studentName">María González Pérez</h2>
+                      <p class="text-gray-600 mb-4">Estudiante Ingenira software</p>
+                  </div>
+                  <div class="flex space-x-2">
+                      <button class="p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition">
+                          <i class="fas fa-phone"></i>
+                      </button>
+                      <button class="p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition">
+                          <i class="fas fa-envelope"></i>
+                      </button>
+                      <button class="p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition">
+                          <i class="fas fa-ellipsis-v"></i>
+                      </button>
+                  </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                  <div>
+                      <p class="text-gray-500 font-medium">ID Estudiante</p>
+                      <p class="font-medium" id="studentId">EST-2023-0456</p>
+                  </div>
+                  <div>
+                      <p class="text-gray-500 font-medium">Teléfono</p>
+                      <p class="font-medium" id="studentPhone">+56 9 8765 4321</p>
+                  </div>
+                  <div>
+                      <p class="text-gray-500 font-medium">Correo</p>
+                      <p class="font-medium" id="studentEmail">15519+.senati.pe</p>
+                  </div>
+              </div>
+          </div>
       </div>
-      <button
-        (click)="agregarDerivacion()"
-        class="bg-orange-500 text-white py-2 px-4 rounded-lg hover:bg-orange-600 transition-all focus:ring-2 focus:ring-orange-400"
-      >
-        ➕ Agregar Derivación
-      </button>
-    </div>
-  }
+  </div>
 
-  <!--  Lista de derivaciones previas -->
-  @if (estudiante ) {
-    <div class="bg-white shadow-lg rounded-lg p-6">
-      <h3 class="text-lg font-semibold text-gray-800 mb-4">📂 Derivaciones Previas</h3>
-      <ul class="space-y-2">
-        @for (derivacion of derivaciones; track $index) {
-          <li class="p-3 rounded-md transition-all" [ngClass]="{'bg-green-100': derivacion.responded, 'bg-yellow-100': !derivacion.responded}">
-            <strong>{{ derivacion.fecha }}</strong> - {{ derivacion.motivo }}
-            <p class="text-sm text-gray-600">Estado: {{ derivacion.responded ? 'Respondida' : 'Pendiente' }}</p>
-            <p *ngIf="derivacion.responded" class="text-sm text-gray-600">Respuesta del Tutor: {{ derivacion.respuestaTutor }}</p>
-          </li>
-        }
-      </ul>
-    </div>
-  }
-</div>
-<!-- fin -->
+  <!-- Derivation Form (Conditional) -->
+  <div id="derivationForm" class=" bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6 animate-fade-in">
+      <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+          <i class="fas fa-exchange-alt text-indigo-600 mr-3"></i>
+          Nueva Derivación
+      </h2>
 
+      <div class="mb-6">
+          <label class="block text-gray-700 font-medium mb-2">Motivo de la derivación</label>
+          <textarea class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none input-focus focus:border-indigo-500" rows="4" placeholder="Describa el motivo de la derivación..."></textarea>
+      </div>
+
+      <div class="mb-6">
+          <label class="block text-gray-700 font-medium mb-2">Área de derivación</label>
+          <select class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none input-focus focus:border-indigo-500">
+              <option>Seleccione un área...</option>
+              <option>Orientación Vocacional</option>
+              <option>Apoyo Psicológico</option>
+              <option>Bienestar Estudiantil</option>
+              <option>Asuntos Académicos</option>
+              <option>Otro</option>
+          </select>
+      </div>
+
+      <div class="flex justify-end space-x-3">
+          <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+              Cancelar
+          </button>
+          <button class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition flex items-center">
+              <i class="fas fa-paper-plane mr-2"></i>
+              Enviar Derivación
+          </button>
+      </div>
+  </div>
+
+  <!-- Previous Derivations (Conditional) -->
+  <div id="previousDerivations" class=" bg-white rounded-xl shadow-sm border border-gray-200 p-6 animate-fade-in">
+      <div class="flex justify-between items-center mb-6">
+          <h2 class="text-xl font-bold text-gray-800 flex items-center">
+              <i class="fas fa-history text-indigo-600 mr-3"></i>
+              Derivaciones Previas
+          </h2>
+          <div class="flex items-center">
+              <span class="text-sm text-gray-500 mr-3">Filtrar:</span>
+              <select class="text-sm border border-gray-300 rounded-lg px-3 py-1 focus:outline-none focus:ring-1 focus:ring-indigo-500">
+                  <option>Todas</option>
+                  <option>Pendientes</option>
+                  <option>Respondidas</option>
+                  <option>Último mes</option>
+              </select>
+          </div>
+      </div>
+
+      <div class="space-y-4">
+          <!-- Derivación 1 -->
+          <div class="derivacion-card p-4 border-l-4 border-indigo-500 rounded-lg bg-gray-50 hover:bg-white cursor-pointer">
+              <div class="flex justify-between items-start">
+                  <div>
+                      <div class="flex items-center mb-1">
+                          <span class="font-medium text-gray-800 mr-3">Derivación a Bienestar Estudiantil</span>
+                          <span class="text-xs px-2 py-0.5 bg-yellow-100 text-yellow-800 rounded-full">Pendiente</span>
+                      </div>
+                      <p class="text-sm text-gray-600 mb-2">Motivo: Problemas de asistencia recurrentes y bajo rendimiento académico en las últimas semanas.</p>
+                      <div class="flex items-center text-xs text-gray-500">
+                          <i class="far fa-calendar mr-1"></i>
+                          <span class="mr-3">15 Oct 2023</span>
+                          <i class="far fa-user mr-1"></i>
+                          <span>Derivado a: Psic. Ana Rojas</span>
+                      </div>
+                  </div>
+                  <button class="text-gray-400 hover:text-indigo-600 p-1">
+                      <i class="fas fa-ellipsis-v"></i>
+                  </button>
+              </div>
+          </div>
+
+          <!-- Derivación 2 -->
+          <div class="derivacion-card p-4 border-l-4 border-green-500 rounded-lg bg-gray-50 hover:bg-white cursor-pointer">
+              <div class="flex justify-between items-start">
+                  <div>
+                      <div class="flex items-center mb-1">
+                          <span class="font-medium text-gray-800 mr-3">Derivación a Orientación Vocacional</span>
+                          <span class="text-xs px-2 py-0.5 bg-green-100 text-green-800 rounded-full">Respondida</span>
+                      </div>
+                      <p class="text-sm text-gray-600 mb-2">Motivo: Dudas sobre continuidad en la carrera y posibles cambios de programa.</p>
+                      <div class="text-xs text-gray-500 mb-2">
+                          <p class="text-green-600 font-medium"><i class="fas fa-comment-dots mr-1"></i> Respuesta: "Se programó cita para evaluación vocacional el 25/10 a las 14:30 hrs."</p>
+                      </div>
+                      <div class="flex items-center text-xs text-gray-500">
+                          <i class="far fa-calendar mr-1"></i>
+                          <span class="mr-3">05 Oct 2023</span>
+                          <i class="far fa-user mr-1"></i>
+                          <span>Derivado a: Lic. Pedro Sánchez</span>
+                      </div>
+                  </div>
+                  <button class="text-gray-400 hover:text-indigo-600 p-1">
+                      <i class="fas fa-ellipsis-v"></i>
+                  </button>
+              </div>
+          </div>
+
+          <!-- Derivación 3 -->
+          <div class="derivacion-card p-4 border-l-4 border-indigo-500 rounded-lg bg-gray-50 hover:bg-white cursor-pointer">
+              <div class="flex justify-between items-start">
+                  <div>
+                      <div class="flex items-center mb-1">
+                          <span class="font-medium text-gray-800 mr-3">Derivación a Asuntos Académicos</span>
+                          <span class="text-xs px-2 py-0.5 bg-yellow-100 text-yellow-800 rounded-full">Pendiente</span>
+                      </div>
+                      <p class="text-sm text-gray-600 mb-2">Motivo: Solicitud de revisión de situación académica por problemas familiares que afectan rendimiento.</p>
+                      <div class="flex items-center text-xs text-gray-500">
+                          <i class="far fa-calendar mr-1"></i>
+                          <span class="mr-3">20 Oct 2023</span>
+                          <i class="far fa-user mr-1"></i>
+                          <span>Derivado a: Coord. Académica</span>
+                      </div>
+                  </div>
+                  <button class="text-gray-400 hover:text-indigo-600 p-1">
+                      <i class="fas fa-ellipsis-v"></i>
+                  </button>
+              </div>
+          </div>
+      </div>
+
+      <div class="mt-6 flex justify-center">
+          <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition flex items-center">
+              <i class="fas fa-history mr-2"></i>
+              Ver todas las derivaciones
+          </button>
+      </div>
+  </div>
+
+  <!-- Empty State -->
+  <div id="emptyState" class="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center animate-fade-in">
+      <div class="max-w-md mx-auto">
+          <div class="w-20 h-20 mx-auto mb-6 bg-indigo-100 rounded-full flex items-center justify-center">
+              <i class="fas fa-user-graduate text-3xl text-indigo-600"></i>
+          </div>
+          <h3 class="text-lg font-medium text-gray-800 mb-2">Selecciona un estudiante</h3>
+          <p class="text-gray-600 mb-6">Busca un estudiante por su ID o nombre para ver su información y realizar derivaciones.</p>
+          <button onclick="showSampleData()" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition inline-flex items-center">
+              <i class="fas fa-search mr-2"></i>
+              Buscar estudiante
+          </button>
+      </div>
+  </div>

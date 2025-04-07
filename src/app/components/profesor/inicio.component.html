@@ -1,6 +1,5 @@
-
 <app-navbar></app-navbar>
-<div class="min-h-screen bg-gray-100 text-gray-800 p-6">
+<!-- <div class="min-h-screen bg-gray-100 text-gray-800 p-6">
   <div class="flex justify-between items-center mb-6">
     <p class="text-red-500 text-lg">Bienvenido {{ user || 'Profesor' }}</p>
     <div class="text-right">
@@ -22,10 +21,10 @@
       <p class="text-lg">Hora</p>
       <p class="text-red-500 text-4xl">{{ hora }}</p>
     </div>
-  </div>
+  </div> -->
 
-  <!-- Notificaciones -->
-  <div class="bg-white p-6 rounded-lg shadow-lg mb-6">
+<!-- Notificaciones -->
+<!-- <div class="bg-white p-6 rounded-lg shadow-lg mb-6">
     <h3 class="text-lg font-semibold mb-4">Notificaciones</h3>
     <ul class="space-y-4">
       <li *ngFor="let notificacion of notificaciones" class="p-4 border-2 border-gray-300 rounded-lg bg-blue-50">
@@ -33,10 +32,10 @@
         <p><strong>Mensaje:</strong> {{ notificacion.mensaje }}</p>
       </li>
     </ul>
-  </div>
+  </div> -->
 
-  <!-- Respuestas del Tutor -->
-  <div class="bg-white p-6 rounded-lg shadow-lg">
+<!-- Respuestas del Tutor -->
+<!-- <div class="bg-white p-6 rounded-lg shadow-lg">
     <h3 class="text-lg font-semibold mb-4">Respuestas del Tutor</h3>
     <ul class="space-y-4">
       <li *ngFor="let respuesta of respuestasTutor" class="p-4 border-2 border-gray-300 rounded-lg">
@@ -44,8 +43,247 @@
       </li>
     </ul>
   </div>
-</div>
+</div> -->
 <!-- zero miedo -->
 
+<div class="min-h-screen bg-gray-50 text-gray-800 font-sans">
+  <div class="container mx-auto px-4 py-6">
+    <!-- Header Section -->
+    <div
+      class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4"
+    >
+      <div>
+        <h1 class="text-2xl font-bold text-dark">Panel del Profesor</h1>
+        <p class="text-primary text-lg font-medium">
+          Bienvenido <span class="font-semibold">Profesor</span>
+        </p>
+      </div>
 
+      <div class="flex items-center gap-4">
+        <div class="hidden md:block bg-white p-3 rounded-lg shadow-sm">
+          <div class="flex items-center gap-2 text-gray-600">
+            <i class="far fa-calendar-alt"></i>
+            <span>15 de Junio, 2023</span>
+          </div>
+        </div>
 
+        <div class="relative bg-white p-3 rounded-lg shadow-sm">
+          <div class="flex items-center gap-2 text-primary">
+            <i class="far fa-clock"></i>
+            <span class="font-bold text-xl">14:30</span>
+          </div>
+          <div class="notification-dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div
+        class="bg-white p-6 rounded-xl shadow-sm transition-all duration-300 card-hover animate-fade-in"
+      >
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-500">Enviados</p>
+            <p class="text-3xl font-bold text-primary mt-2">24</p>
+          </div>
+          <div class="bg-primary/10 p-3 rounded-full">
+            <i class="fas fa-paper-plane text-primary text-xl"></i>
+          </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-gray-100">
+          <p class="text-sm text-gray-500">+2 desde ayer</p>
+        </div>
+      </div>
+
+      <div
+        class="bg-white p-6 rounded-xl shadow-sm transition-all duration-300 card-hover animate-fade-in"
+        style="animation-delay: 0.1s"
+      >
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-500">Recibidos</p>
+            <p class="text-3xl font-bold text-secondary mt-2">18</p>
+          </div>
+          <div class="bg-secondary/10 p-3 rounded-full">
+            <i class="fas fa-inbox text-secondary text-xl"></i>
+          </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-gray-100">
+          <p class="text-sm text-gray-500">+5 desde ayer</p>
+        </div>
+      </div>
+
+      <div
+        class="bg-white p-6 rounded-xl shadow-sm transition-all duration-300 card-hover animate-fade-in"
+        style="animation-delay: 0.2s"
+      >
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-500">Pendientes</p>
+            <p class="text-3xl font-bold text-yellow-500 mt-2">6</p>
+          </div>
+          <div class="bg-yellow-500/10 p-3 rounded-full">
+            <i class="fas fa-clock text-yellow-500 text-xl"></i>
+          </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-gray-100">
+          <p class="text-sm text-gray-500">-1 desde ayer</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notifications Section -->
+    <div
+      class="bg-white rounded-xl shadow-sm overflow-hidden mb-8 animate-fade-in"
+      style="animation-delay: 0.3s"
+    >
+      <div
+        class="px-6 py-4 border-b border-gray-100 flex justify-between items-center"
+      >
+        <h3 class="text-lg font-semibold text-dark">Notificaciones</h3>
+        <button class="text-primary text-sm font-medium">Ver todas</button>
+      </div>
+
+      <ul class="divide-y divide-gray-100">
+        <li class="p-6 hover:bg-gray-50 transition-colors duration-200">
+          <div class="flex items-start gap-4">
+            <div class="bg-blue-100 p-3 rounded-full">
+              <i class="fas fa-bell text-blue-500"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <p class="font-medium">Nuevo mensaje recibido</p>
+                <span
+                  class="text-xs bg-primary text-white px-2 py-0.5 rounded-full"
+                  >Nuevo</span
+                >
+              </div>
+              <p class="text-gray-500 text-sm mt-1">
+                Juan Pérez ha respondido a tu consulta
+              </p>
+              <p class="text-gray-400 text-xs mt-2">Hoy, 10:30 AM</p>
+            </div>
+          </div>
+        </li>
+
+        <li class="p-6 hover:bg-gray-50 transition-colors duration-200">
+          <div class="flex items-start gap-4">
+            <div class="bg-green-100 p-3 rounded-full">
+              <i class="fas fa-check-circle text-green-500"></i>
+            </div>
+            <div>
+              <p class="font-medium">Tarea completada</p>
+              <p class="text-gray-500 text-sm mt-1">
+                María Gómez ha entregado la tarea 3
+              </p>
+              <p class="text-gray-400 text-xs mt-2">Ayer, 4:15 PM</p>
+            </div>
+          </div>
+        </li>
+
+        <li class="p-6 hover:bg-gray-50 transition-colors duration-200">
+          <div class="flex items-start gap-4">
+            <div class="bg-purple-100 p-3 rounded-full">
+              <i class="fas fa-calendar-alt text-purple-500"></i>
+            </div>
+            <div>
+              <p class="font-medium">Recordatorio</p>
+              <p class="text-gray-500 text-sm mt-1">
+                Reunión con padres hoy a las 16:00
+              </p>
+              <p class="text-gray-400 text-xs mt-2">15 Jun, 9:00 AM</p>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Tutor Responses Section -->
+    <div
+      class="bg-white rounded-xl shadow-sm overflow-hidden animate-fade-in"
+      style="animation-delay: 0.4s"
+    >
+      <div
+        class="px-6 py-4 border-b border-gray-100 flex justify-between items-center"
+      >
+        <h3 class="text-lg font-semibold text-dark">Respuestas del Tutor</h3>
+        <button class="text-primary text-sm font-medium">Ver historial</button>
+      </div>
+
+      <ul class="divide-y divide-gray-100">
+        <li class="p-6 hover:bg-gray-50 transition-colors duration-200">
+          <div class="flex items-start gap-4">
+            <div
+              class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center"
+            >
+              <i class="fas fa-user-graduate text-primary"></i>
+            </div>
+            <div class="flex-1">
+              <div class="flex justify-between items-start">
+                <div>
+                  <p class="font-medium">Carlos Ruiz</p>
+                  <p class="text-gray-500 text-sm">Tutor de Matemáticas</p>
+                </div>
+                <span class="text-xs text-gray-400">Hoy, 11:45 AM</span>
+              </div>
+              <p class="mt-2 text-gray-700">
+                Hemos revisado el ejercicio 5 y parece que los estudiantes están
+                teniendo dificultades con el concepto de derivadas. Sugiero una
+                sesión de repaso.
+              </p>
+              <div class="mt-3 flex gap-2">
+                <button
+                  class="text-xs bg-primary/10 text-primary px-3 py-1 rounded-full"
+                >
+                  Matemáticas
+                </button>
+                <button
+                  class="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full"
+                >
+                  Ejercicio 5
+                </button>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="p-6 hover:bg-gray-50 transition-colors duration-200">
+          <div class="flex items-start gap-4">
+            <div
+              class="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center"
+            >
+              <i class="fas fa-user-graduate text-secondary"></i>
+            </div>
+            <div class="flex-1">
+              <div class="flex justify-between items-start">
+                <div>
+                  <p class="font-medium">Ana Martínez</p>
+                  <p class="text-gray-500 text-sm">Tutora de Lengua</p>
+                </div>
+                <span class="text-xs text-gray-400">Ayer, 3:20 PM</span>
+              </div>
+              <p class="mt-2 text-gray-700">
+                Los análisis de texto están mejorando notablemente. Algunos
+                estudiantes aún necesitan trabajar en la estructura de párrafos.
+                Adjunto ejemplos.
+              </p>
+              <div class="mt-3 flex gap-2">
+                <button
+                  class="text-xs bg-secondary/10 text-secondary px-3 py-1 rounded-full"
+                >
+                  Lengua
+                </button>
+                <button
+                  class="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full"
+                >
+                  Análisis
+                </button>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
