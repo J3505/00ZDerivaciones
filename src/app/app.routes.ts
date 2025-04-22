@@ -36,8 +36,8 @@ export const routes: Routes = [
     children:[
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', loadComponent: () => import('./admin/dashboard/dashboard.component')},
-      { path: 'dericacion', loadChildren: () => import ('./admin/derivacion/derivacion.component')},
-      { path : 'estudiantes', loadComponent: () => import ('./admin/estudiantes/estudiantes.component')},
+      { path: 'derivacion', loadComponent: () => import ('./admin/derivacion/derivacion.component')},
+      { path: 'estudiantes', loadComponent: () => import ('./admin/estudiantes/estudiantes.component')},
     ]
   },
 
