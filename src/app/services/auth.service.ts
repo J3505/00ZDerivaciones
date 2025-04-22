@@ -9,9 +9,9 @@ export class AuthService {
   private currentRole: string | null = null;
 
   private users = [
-    { username: 'admin@senati.pe', role: 'admin', password: '123' },
-    { username: 'profe@senati.pe', role: 'profesor', password: '123' },
-    { username: 'tutor@senati.pe', role: 'tutor', password: '123' },
+    { username: 'admin', role: 'admin', password: '123' },
+    { username: 'profe', role: 'profesor', password: '123' },
+    { username: 'tutor', role: 'tutor', password: '123' },
   ];
 
   constructor(private router: Router) {}
@@ -30,7 +30,7 @@ export class AuthService {
           this.router.navigate(['/tutor/inicio']);
           break;
         case 'admin':
-          this.router.navigate(['/admin/inicio']);
+          this.router.navigate(['/admin/dashboard']);
           break;
       }
       return true;

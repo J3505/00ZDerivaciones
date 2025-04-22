@@ -30,14 +30,17 @@ export const routes: Routes = [
       { path: 'historial', component: HistorialTutorComponent },
     ],
   },
-  // {
-  //   path: 'admin',
-  //   children: [
-  //     { path: 'inicio', component:  },
-  //     { path: 'estudiantes', component:   },
-  //     { path: 'derivaciones', component:  },
-  //   ]
-  // },
+  {
+    path: 'admin',
+    loadComponent: () => import('./layout/admin/layout-admin/layout-admin.component'),
+    children:[
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', loadComponent: () => import('./admin/dashboard/dashboard.component')},
+      { path: 'dericacion', loadChildren: () => import ('./admin/derivacion/derivacion.component')},
+      { path : 'estudiantes', loadComponent: () => import ('./admin/estudiantes/estudiantes.component')},
+    ]
+  },
+
   {
     path: '**',
     redirectTo: 'login',
